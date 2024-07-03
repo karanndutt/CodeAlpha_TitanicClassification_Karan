@@ -1,0 +1,31 @@
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+
+# Sample data: socio-economic status (SES), age, gender, survived (1) or not (0)
+data = {
+    'SES': [1, 0, 1, 0, 0, 1, 1, 0, 0, 1],
+    'Age': [22, 38, 26, 35, 21, 28, 42, 19, 45, 36],
+    'Gender': [0, 1, 1, 1, 0, 0, 0, 1, 0, 1],
+    'Survived': [0, 1, 1, 1, 0, 1, 0, 0, 0, 1]
+}
+
+df = pd.DataFrame(data)
+
+# Features (X) and target (y)
+X = df[['SES', 'Age', 'Gender']]
+y = df['Survived']
+
+# Initialize Decision Tree Classifier
+clf = DecisionTreeClassifier()
+
+# Train the classifier
+clf.fit(X, y)
+
+# Example prediction: SES=1, Age=30, Gender=0 (male)
+new_data = pd.DataFrame({'SES': [1], 'Age': [30], 'Gender': [0]})
+prediction = clf.predict(new_data)
+
+if prediction[0] == 1:
+    print("Prediction: Person is likely to survive.")
+else:
+    print("Prediction: Person is not likely to survive.")
